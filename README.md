@@ -73,3 +73,5 @@ svg.visible_layers = ["toolbar.home"]
 ```
 
 For detailed examples, check out the `/notebooks`.
+
+©2015 Georgia Tech Applied Research Corporation
