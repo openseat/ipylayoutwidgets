@@ -10,4 +10,4 @@ install:
   - pip install `ls dist/*.whl`
 
 script:
-  - python -m ipylayoutwidgets.install
+  - python -m ipylayoutwidgets.install --user
