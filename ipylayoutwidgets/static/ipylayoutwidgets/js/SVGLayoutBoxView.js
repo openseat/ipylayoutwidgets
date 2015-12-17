@@ -9,7 +9,11 @@ function(tk){
 
   var SVGLayoutBoxView = tk.manager.ManagerBase._view_types.BoxView.extend({
     initialize: function(){
-      this.d3 = d3.select(this.el).style({position: "relative"});
+      this.d3 = d3.select(this.el)
+        .style({
+          position: "relative",
+          "text-align": "center"
+        });
       d3.select(window).on("resize", _.bind(this.update, this));
 
       this.model.on("change:svg", _.bind(this.load_svg, this));
@@ -100,17 +104,26 @@ function(tk){
         height = width / aspect_ratio,
         label_map = {},
         visible_layers = this.model.get("visible_layers")
-          .map(this.patternToRegexp);
+          .map(this.patternToRegexp),
+        scale = width / this.original.width;
+
+      if(scale * this.original.height > doc.clientHeight){
+        scale = doc.clientHeight / this.original.height;
+        height = doc.clientHeight;
+        width = height * aspect_ratio;
+      }
 
       layout.attr({
-        width: width,
-        height: height
-      })
-      .style({
-        opacity: this.model.get("show_svg") ? 1 : 0
-      });
-
-      console.log(visible_layers);
+          width: width,
+          height: height
+        })
+        .style({
+          opacity: this.model.get("show_svg") ? 1 : 0
+        })
+        .select("#ROOT-"+ view.cid)
+        .attr({
+          transform: "scale(" + scale + ")"
+        });
 
       var layer = layout.selectAll("g"),
         named = layer.filter(function(){

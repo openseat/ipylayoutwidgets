@@ -23,7 +23,7 @@ class SVGLayoutBox(widgets.Box):
         "/nbextensions/ipylayoutwidgets/js/SVGLayoutBoxModel.js",
         sync=True
     )
-        
+
     svg = traitlets.Unicode(sync=True)
     svg_file = traitlets.Unicode(sync=True)
     show_svg = traitlets.Bool(True, sync=True)
